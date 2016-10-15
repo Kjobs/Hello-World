@@ -42,4 +42,11 @@ Git常用命令
 
 * 如果工作区文件被删除，可以选择  
 `$ git rm file`从版本库中删除  
-`$ git checkout -- file`用版本库中的文件替换工作区的文件，相当于“还原”
+`$ git checkout -- file`用版本库中的文件替换工作区的文件，相当于“还原”  
+
+* 建立远程连接，添加到远程仓库以及添加SSH Key后  
+`$ git remote add origin git@github.com:KobsJieH/repo.git`  
+`$ git push -u origin master`将本地仓库（首次）推送到github  
+`$ git push origin master`通过此命令推送最新修改至github  
+
+
