@@ -49,4 +49,5 @@ Git常用命令
 `$ git push -u origin master`将本地仓库（首次）推送到github  
 `$ git push origin master`通过此命令推送最新修改至github  
 
-
+* 从远程库克隆到本地  
+`$ git clone git@github.com:KobsJieH/Hello-World
