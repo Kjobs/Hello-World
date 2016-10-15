@@ -41,5 +41,5 @@ Git常用命令
 `git reset HEAD file`  
 
 * 如果工作区文件被删除，可以选择  
-1. `$ git rm file`从版本库中删除；  
-2. `$ git checkout -- file`用版本库中的文件替换工作区的文件，相当于“还原”
+`$ git rm file`从版本库中删除  
+`$ git checkout -- file`用版本库中的文件替换工作区的文件，相当于“还原”
