@@ -50,4 +50,20 @@ Git常用命令
 `$ git push origin master`通过此命令推送最新修改至github  
 
 * 从远程库克隆到本地  
-`$ git clone git@github.com:KobsJieH/Hello-World`
+`$ git clone git@github.com:KobsJieH/Hello-World`  
+
+* 创建分支  
+`$ git checkout -b dev`创建并切换到分支，相当于一下两条命令  
+`$ git branch dev`  
+`$ git checkout dev`  
+
+* 合并分支  
+`$ git commit -m "commit"`  
+`$ git checkout master`
+`$ git merge dev`  
+
+* 查看当前分支  
+`$ git branch`  
+
+* 删除dev分支  
+`git branch -d dev`  
