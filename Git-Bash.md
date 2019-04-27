@@ -20,9 +20,10 @@ Git常用命令
 * 若git status显示有修改，查看仓库修改信息，即查看difference  
 `$ git diff file`  
 
-* 查看历史记录，最近3次提交修改信息和commit的ID以供需要  
+* 查看历史记录，最近3次提交修改信息和commit的ID  
 `$ git log`  
 `$ git log --pretty=oneline`  
+`$ git log --graph` (查看分支图)
 
 * 查看命令历史  
 `$ git reflog`  
@@ -50,14 +51,14 @@ Git常用命令
 `$ git push origin master`通过此命令推送最新修改至github  
 
 * 从远程库克隆到本地  
-`$ git clone git@github.com:KobsJieH/Hello-World`  
+`$ git clone git@github.com:**(github ID)/Hello-World.git`  
 
 * 创建分支  
-`$ git checkout -b dev`创建并切换到分支，相当于一下两条命令  
+`$ git checkout -b dev`创建并切换到分支，相当于以下两条命令  
 `$ git branch dev`  
 `$ git checkout dev`  
 
-* 合并分支  
+* 合并分支（master合并dev）  
 `$ git commit -m "commit"`  
 `$ git checkout master`
 `$ git merge dev`  
