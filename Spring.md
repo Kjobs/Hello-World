@@ -3,7 +3,7 @@
 ### IoC和DI
 
 #### IoC(Inversion of Control, 控制反转)
-> 控制：IoC容器控制了对象——外部资源获取（包括文件等）
+> 控制：IoC容器控制了对象——外部资源获取（包括文件等）<br>
 > 反转：容器帮忙创建及注入依赖对象，对象只是被动的接受依赖对象
 
 #### DI(Dependency Injection)
@@ -58,9 +58,9 @@ IDEA修改tomcat运行端口<br>
 ### @RestController
 >@RestController注解继承自@Controller<br>
 
-使用@RestController注解Controller，则Controller中的方法无法返回jsp页面；
-如果需要返回指定页面，则需用@Controller配合视图解析器InternalResourceViewResolver才行；
-如果需要返回JSON、XML或自定义Type到页面，则需在对应的方法上加@ResponseBody注解。
+1. 使用@RestController注解Controller，则Controller中的方法无法返回jsp页面；
+2. 如果需要返回指定页面，则需用@Controller配合视图解析器InternalResourceViewResolver才行；
+3. 如果需要返回JSON、XML或自定义Type到页面，则需在对应的方法上加@ResponseBody注解。
 
 
 ### @GetMapping 
@@ -82,7 +82,6 @@ IDEA修改tomcat运行端口<br>
   artifactId---工程的标识
   version------工程的版本号
 
-
 ---
 
 ## swagger API
@@ -90,21 +89,22 @@ IDEA修改tomcat运行端口<br>
 --- @Api、@ApiOperation和@ApiParam ---
 ~ 为添加的API作相关注解（可查看博客[swagger2常用注解说明](https://blog.csdn.net/u014231523/article/details/76522486)） ~
 
-1）@Api用于类
-2）@ApiOperation用于方法
-	参数说明：value{接口说明},httpMethod{接口请求方式}，response{接口返回参数类型}，note{接口发布说明}
-3）@ApiParam用于方法、参数、字段说明
-	参数说明：required{是否必须参数},name{参数名称},value{参数参数具体描述}
-	
-
-· 对象属性			 ||@ApiModelProperty |	用在出入参数对象的字段上，表示对model属性的说明（value、name、dataType、required等）
-· 协议集描述		 ||@Api			  	 |	用于controller类上
-· 协议描述			 ||@ApiOperation	 |	用在controller的方法上
-· Response集		 ||@ApiResponses	 |	用在controller的方法上
-· Response			 ||@ApiResponse	  	 |	用在@ApiResponses里边
-· 非对象参数集		 ||@ApiImplicitParams|	用在controller的方法上
-· 非对象参数描述	 ||@ApiImplicitParam |	用在@ApiImplicitParams的方法里边
-· 描述返回对象的意义 ||@ApiModel		 |	用在返回对象类上
+1）@Api用于类  
+2）@ApiOperation用于方法  
+ 参数说明：value{接口说明},httpMethod{接口请求方式}，response{接口返回参数类型}，note{接口发布说明}   
+3）@ApiParam用于方法、参数、字段说明  
+ 参数说明：required{是否必须参数},name{参数名称},value{参数参数具体描述}
+  	
+描述 | 名称 | 作用
+:---:|:----:|:---:
+对象属性|@ApiModelProperty|用在出入参数对象的字段上，表示对model属性的说明（value、name、dataType、required等）
+协议集描述|@Api|用于controller类上
+协议描述@ApiOperation|用在controller的方法上
+Response集|@ApiResponses|用在controller的方法上
+Response|@ApiResponse|用在@ApiResponses里边
+非对象参数集|@ApiImplicitParams|用在controller的方法上
+非对象参数描述|@ApiImplicitParam|用在@ApiImplicitParams的方法里边
+描述返回对象的意义|@ApiModel|用在返回对象类上
 
 ---
 
