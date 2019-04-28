@@ -1,14 +1,12 @@
-~~~~~~~~~~~~~~~~~~~~~~~~~
-Spring
-~~~~~~~~~~~~~~~~~~~~~~~~~
+## Spring
 
-###IoC(Inversion of Control, 控制反转)
+### IoC(Inversion of Control, 控制反转)
 + 控制：IoC容器控制了对象——外部资源获取（包括文件等）
 - 反转：容器帮忙创建及注入依赖对象，对象只是被动的接受依赖对象
 
 
 ### IoC和DI(Dependency Injection)
-~ DI即“依赖注入”：由容器动态的将某个依赖关系注入到组件之中；
+> DI即“依赖注入”：由容器动态的将某个依赖关系注入到组件之中；
 
 1. 谁依赖于谁：应用程序依赖于IoC容器；
 
@@ -20,28 +18,26 @@ Spring
 
 
 ### 其它简化代码的特性介绍
-+ @NonNull : 让你不在担忧并且爱上NullPointerException
-+ @CleanUp : 自动资源管理：不用再在finally中添加资源的close方法
-+ @Setter/@Getter : 自动生成set和get方法
-+ @ToString : 自动生成toString方法
-+ @EqualsAndHashcode : 从对象的字段中生成hashCode和equals的实现
-+ @NoArgsConstructor/@RequiredArgsConstructor/@AllArgsConstructor自动生成构造方法
-+ @Data : 自动生成set/get方法，toString方法，equals方法，hashCode方法，不带参数的构造方法
-+ @Value : 用于注解final类
-+ @Builder  : 产生复杂的构建器api类
-+ @SneakyThrows : 异常处理（谨慎使用）
-+ @Synchronized : 同步方法安全的转化
-+ @Getter(lazy=true) :
-+ @Log : 支持各种logger对象，使用时用对应的注解，如@Log4j
+
++ `@NonNull` 让你不在担忧并且爱上NullPointerException
++ `@CleanUp` 自动资源管理：不用再在finally中添加资源的close方法
++ `@Setter/@Getter` 自动生成set和get方法
++ `@ToString` 自动生成toString方法
++ `@EqualsAndHashcode` 从对象的字段中生成hashCode和equals的实现
++ `@NoArgsConstructor`/@RequiredArgsConstructor/@AllArgsConstructor自动生成构造方法
++ `@Data` 自动生成set/get方法，toString方法，equals方法，hashCode方法，不带参数的构造方法
++ `@Value` 用于注解final类
++ `@Builder`  产生复杂的构建器api类
++ `@SneakyThrows` 异常处理（谨慎使用）
++ `@Synchronized` 同步方法安全的转化
++ `@Getter(lazy=true)` + `@Log` 支持各种logger对象，使用时用对应的注解，如@Log4j
 
 
 ---
-~~~~~~~~~~~~~~~~~~~~~~~~~
-SpringBoot
-~~~~~~~~~~~~~~~~~~~~~~~~~
----Spring Boot CLI---
-~ 原：Spring Boot Commad Line
-  Spring Boot CLI（Command Line Interface）是一个命令行工具，可以用它来快速构建Spring原型应用。
+
+## SpringBoot
+#### CLI(Spring Boot Commad Line)
+> 是一个命令行工具，可以用它来快速构建Spring原型应用。
   
 ~ windows下安装
 set PATH=D:\bin路径;%PATH%
@@ -95,6 +91,7 @@ swagger注释API说明
 3）@ApiParam用于方法、参数、字段说明
 	参数说明：required{是否必须参数},name{参数名称},value{参数参数具体描述}
 	
+
 · 对象属性			 ||@ApiModelProperty |	用在出入参数对象的字段上，表示对model属性的说明（value、name、dataType、required等）
 · 协议集描述		 ||@Api			  	 |	用于controller类上
 · 协议描述			 ||@ApiOperation	 |	用在controller的方法上
@@ -106,9 +103,7 @@ swagger注释API说明
 
 ---
 
-~~~~~~~~~~~~~~~~~~~~~~~~~
-Spring Security
-~~~~~~~~~~~~~~~~~~~~~~~~~
+## Spring Security
 
 ~ 认证(Authentication)：确认用户可以访问系统
 ~ 授权(Authorization)：确认用户在当前系统中是否能够执行某个操作，即用户所拥有的功能权限
