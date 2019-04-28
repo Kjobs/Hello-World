@@ -36,7 +36,7 @@
 + `@Getter(lazy=true)`在用到cached的时候自动生成，同时，Lombok会自动管理线程安全的问题，不会重复赋值
 + `@Log` 支持各种logger对象，使用时用对应的注解放在类上，如@Log4j（@Log的变体），会得到一个静态的最终日志字段
 
-附[某博客的Lombok](http://greeks.studio/tags/Lombok)几个注解的翻译
+附：[某博客](http://greeks.studio/tags/Lombok)关于Lombok几个注解的翻译
 
 ---
 
@@ -49,11 +49,7 @@ windows下安装
 ```bash
 set PATH=D:\bin路径;%PATH%
 set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
-```
-
-IDEA修改tomcat运行端口<br>
-在applicatio.properties文件加上`server.port=8081`
-<br>   
+```  
 
 ### Spring Boot Annotation
 
