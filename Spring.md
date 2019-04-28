@@ -52,10 +52,12 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 ```
 
 IDEA修改tomcat运行端口<br>
-在applicatio.properties文件加上：server.port=8081
+在applicatio.properties文件加上`server.port=8081`
 <br>   
 
-### @RestController
+### Spring Boot Annotation
+
+#### @RestController
 >@RestController注解继承自@Controller<br>
 
 1. 使用@RestController注解Controller，则Controller中的方法无法返回jsp页面；
@@ -63,55 +65,55 @@ IDEA修改tomcat运行端口<br>
 3. 如果需要返回JSON、XML或自定义Type到页面，则需在对应的方法上加@ResponseBody注解。
 
 
-### @GetMapping 
-~ @GetMapping是一个组合注解，是@RequestMapping(method = RequestMethod.GET)的缩写 ~
-~ Spring4.3引入{@GetMapping、PostMapping、PutMapping、DeleteMapping}简化常用的HTTP映射
+#### @GetMapping 
+> @GetMapping是一个组合注解，是@RequestMapping(method = RequestMethod.GET)的缩写<br>
 
+自Spring4.3引入{@GetMapping、PostMapping、PutMapping、DeleteMapping}简化常用的HTTP映射
 
-### @AutoWired 
+#### @AutoWired 
 
 ---
 
-
 ## maven
-
-每个工程只有一个POM文件
-1.每个POM文件需要project元素和三个必须的字段：GroupId，ArtifactId和version
-2.POM.xml的根元素是project，他有三个主要的子节点：
-  groupId------工程组的标识
-  artifactId---工程的标识
-  version------工程的版本号
-
+每个工程只有一个POM文件  
+1. 每个POM文件需要project元素和三个必须的字段：GroupId，ArtifactId和version
+2. POM.xml的根元素是project，他有三个主要的子节点
+ ```xml
+<group>工程组的标识</group>
+<artifactId>工程的标识</artifactId>
+<version>工程的版本号</version>
+```
 ---
 
 ## swagger API
 
---- @Api、@ApiOperation和@ApiParam ---
-~ 为添加的API作相关注解（可查看博客[swagger2常用注解说明](https://blog.csdn.net/u014231523/article/details/76522486)） ~
-
+>为添加的API作相关注解（作用及属性配置可看博客[swagger2常用注解API介绍](https://blog.csdn.net/small_to_large/article/details/77586765)） 
+  
+常用的三种注解  
 1）@Api用于类  
+> 参数说明：url{路径信息}  
+
 2）@ApiOperation用于方法  
- 参数说明：value{接口说明},httpMethod{接口请求方式}，response{接口返回参数类型}，note{接口发布说明}   
+> 参数说明：value{接口说明},httpMethod{接口请求方式}，response{接口返回参数类型}，note{接口发布说明}   
+
 3）@ApiParam用于方法、参数、字段说明  
- 参数说明：required{是否必须参数},name{参数名称},value{参数参数具体描述}
+> 参数说明：required{是否必须参数},name{参数名称},value{参数参数具体描述}
   	
 描述 | 名称 | 作用
-:---:|:----:|:---:
-对象属性|@ApiModelProperty|用在出入参数对象的字段上，表示对model属性的说明（value、name、dataType、required等）
-协议集描述|@Api|用于controller类上
-协议描述@ApiOperation|用在controller的方法上
-Response集|@ApiResponses|用在controller的方法上
-Response|@ApiResponse|用在@ApiResponses里边
-非对象参数集|@ApiImplicitParams|用在controller的方法上
-非对象参数描述|@ApiImplicitParam|用在@ApiImplicitParams的方法里边
-描述返回对象的意义|@ApiModel|用在返回对象类上
-
+:---:|:----|:---:
+协议集描述|@Api|用于类上，说明类的作用
+协议描述|@ApiOperation|用在方法上，说明方法的作用
+响应方式|@ApiResponse|用在方法上，描述一个操作可能的返回结果(状态码及其描述)
+响应方式集|@ApiResponses|为@ApiResponse集合，响应集配置
+非对象参数描述|@ApiImplicitParam|用在方法上,需要使用Servlet或non-JAX-RS环境时定义参数
+非对象参数集|@ApiImplicitParams|为@ApiImplicitParam集合
+返回对象的意义|@ApiModel|用在返回对象类上，用于描述model信息
+对象属性|@ApiModelProperty|用于方法、字段上，描述model属性或者数据操作更改
 ---
 
 ## Spring Security
 
 + 认证(Authentication)：确认用户可以访问系统  
 + 授权(Authorization)：确认用户在当前系统中是否能够执行某个操作，即用户所拥有的功能权限
-
 
 ---
