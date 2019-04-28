@@ -82,8 +82,6 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 ---
 
 ## swagger API
-
->为添加的API作相关注解（作用及属性配置可看博客[swagger2常用注解API介绍](https://blog.csdn.net/small_to_large/article/details/77586765)） 
   
 常用的三种注解  
 1）@Api用于类  
@@ -105,6 +103,9 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 非对象参数集|@ApiImplicitParams|为@ApiImplicitParam集合
 返回对象的意义|@ApiModel|用在返回对象类上，用于描述model信息
 对象属性|@ApiModelProperty|用于方法、字段上，描述model属性或者数据操作更改
+
+附：[swagger annotation docs](http://docs.swagger.io/swagger-core/v1.3.12/apidocs/index.html?com/wordnik/swagger/annotations)
+
 ---
 
 ## Spring Security
