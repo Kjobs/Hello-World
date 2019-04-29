@@ -70,15 +70,24 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 
 ---
 
-## maven
-每个工程只有一个POM文件  
+## maven  
+
+### POM文件  
 1. 每个POM文件需要project元素和三个必须的字段：GroupId，ArtifactId和version
 2. POM.xml的根元素是project，他有三个主要的子节点
  ```xml
-<group>工程组的标识</group>
-<artifactId>工程的标识</artifactId>
-<version>工程的版本号</version>
+ <parent>
+    <group>工程组的标识</group>
+    <artifactId>工程的标识</artifactId>
+    <version>工程的版本号</version>
+</parent>
+
 ```
+
+### mvn常见命令
+
+<br>
+
 ---
 
 ## swagger API

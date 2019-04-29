@@ -13,6 +13,7 @@ Git常用命令
 
 * 添加commit完成添加文件到仓库  
 `$ git commit -m "commit"`  
+ 参数说明:-m 可以直接在命令中输入注释，若没有参数则会打开编辑器进行注释<br/>
 
 * 查看仓库工作状态信息  
 `$ git status`  
@@ -42,16 +43,25 @@ Git常用命令
 `git reset HEAD file`  
 
 * 如果工作区文件被删除，可以选择  
-`$ git rm file`从版本库中删除  
-`$ git checkout -- file`用版本库中的文件替换工作区的文件，相当于“还原”  
+`$ git rm file`从版本库（暂存区）中删除  
+`$ git checkout -- file`用版本库（暂存区）中的文件替换工作区的文件，相当于“还原”  
 
 * 建立远程连接，添加到远程仓库以及添加SSH Key后  
-`$ git remote add origin git@github.com:KobsJieH/repo.git`  
-`$ git push -u origin master`将本地仓库（首次）推送到github  
-`$ git push origin master`通过此命令推送最新修改至github  
+`$ git remote add origin git@github.com:GitHub ID/repo.git`  
+`$ git push -u origin master`将本地仓库（首次）推送到github    
+`$ git push origin master`通过此命令推送最新修改至github    
+参数说明：若当前分支与多个主机存在追踪关系，则可以通过-u指定默认主机，之后可以不加任何参数使用git push<br/>
+说明：git push若无本地分支名(master)则会删除远程分支（推送空的分支到origin）
 
-* 从远程库克隆到本地  
+* 从远程库克隆到本地    
 `$ git clone git@github.com:**(github ID)/Hello-World.git`  
+
+* 抓取远程分支中本地分支没有的内容(不合并本地分支)  
+`$ git fetch origin master`  
+若要合并:`$ git merge origin/master`
+
+* 抓取远程分支（要合并本地分支）  
+`$ git pull origin master`
 
 * 创建分支  
 `$ git checkout -b dev`创建并切换到分支，相当于以下两条命令  
