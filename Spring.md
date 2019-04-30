@@ -38,6 +38,19 @@
 
 附：[某博客](http://greeks.studio/tags/Lombok)关于Lombok几个注解的翻译
 
+### Validation验证机制
+
+#### @Valid和@Validated
++ @Validated: 可用在类型、方法和方法参数上，但是不能用在成员属性（字段）上
++ @Valid: 可用在方法、构造函数、方法参数和成员属性（字段）上  
+
+嵌套验证：@Validated和@Valid加在方法参数前，都不会自动对参数进行嵌套验证  
+##### 两者区别：
++ @Validated：用在方法入参上无法单独提供嵌套验证功能。不能用在成员属性（字段）上，也无法提示框架进行嵌套验证。能配合嵌套验证注解@Valid进行嵌套验证。
+- @Valid：用在方法入参上无法单独提供嵌套验证功能。能够用在成员属性（字段）上，提示验证框架进行嵌套验证。能配合嵌套验证注解@Valid进行嵌套验证。
+
+
+
 ---
 
 ## SpringBoot
@@ -45,7 +58,7 @@
 ### CLI(Spring Boot Commad Line)
 > 是一个命令行工具，可以用它来快速构建Spring原型应用。
   
-windows下安装  
+windows下安装cmd命令  
 ```bash
 set PATH=D:\bin路径;%PATH%
 set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
@@ -67,6 +80,25 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 自Spring4.3引入{@GetMapping、PostMapping、PutMapping、DeleteMapping}简化常用的HTTP映射
 
 #### @AutoWired 
+
+#### @GeneratedValue
+> 在JPA中，@GeneratedValue注解是为了一个实体生成一个唯一标识的主键
+
+有四种主键生成策略，被定义在枚举类GenerationType中<br/>
+1. `@Id @GeneratedValue(strategy=GenerationType.AUTO) long id;`  
+这种方式会把主键生成策略交给持久化引擎，持久化引擎会选择下面其中一种，
+由于JPA默认是AUTO方式，所以不用特意指定策略，例：`@Id @GeneratedValue long id`
+2. `@Id @GeneratedValue(strategy=GenerationType.IDENTITY) long id`  
+即数据库中的主键自增长，包括MySQL在内的大部分数据库支持  
+3. `@Id @GeneratedValue(strategy=GenerationType.SEQUENCE) long id`  
+部分数据库(Oracle, PostgreSQL, DB2等)生成“序列(sequence)”对象，与注解@SequenceGenerator一起用于主键生成策略  
+4. `@Id @GeneratedValue(strategy=GenerationType.TABLE) long id`  
+使用一个特定的数据表格来保存主键，不依赖与外部环境和数据库具体实现，容易移植。
+一般与另一个注解@TableGenerator搭配使用  
+
+更多详解请参略:[Auto Generated Values](https://www.objectdb.com/java/jpa/entity/generated)
+
+
 
 ---
 
