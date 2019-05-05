@@ -48,6 +48,9 @@ Git常用命令
 
 * 建立远程连接，添加到远程仓库以及添加SSH Key后  
 `$ git remote add origin git@github.com:GitHub ID/repo.git`  
+
+* 推送本地分支到远程分支
+`$ git push <远程主机名> <本地分支名>:<远程分支名>`
 `$ git push -u origin master`将本地仓库（首次）推送到github    
 `$ git push origin master`通过此命令推送最新修改至github    
 参数说明：若当前分支与多个主机存在追踪关系，则可以通过-u指定默认主机，之后可以不加任何参数使用git push<br/>
@@ -56,11 +59,15 @@ Git常用命令
 * 从远程库克隆到本地    
 `$ git clone git@github.com:**(github ID)/Hello-World.git`  
 
-* 抓取远程分支中本地分支没有的内容(不合并本地分支)  
-`$ git fetch origin master`  
-若要合并:`$ git merge origin/master`
+* 抓取远程分支中本地分支没有的内容(不合并本地分支)   
+`$ git fetch <远程主机名> <远程分支名>`   
+`$ git fetch origin dev`  
 
-* 抓取远程分支（要合并本地分支）  
+* 合并到当前分支  
+`$ git merge origin/dev`
+
+* 抓取远程分支（要合并本地分支,相当于fetch+merge）  
+`$ git pull <远程主机名> <远程分支名>:<本地分支名>`  
 `$ git pull origin master`
 
 * 创建分支  
