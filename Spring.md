@@ -80,6 +80,8 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 自Spring4.3引入{@GetMapping、PostMapping、PutMapping、DeleteMapping}简化常用的HTTP映射
 
 #### @AutoWired 
+> 可以对类成员变量、方法及构造函数进行标注，完成自动分配  
+
 
 #### @GeneratedValue
 > 在JPA中，@GeneratedValue注解是为了一个实体生成一个唯一标识的主键
@@ -98,7 +100,10 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 
 更多详解请参略:[Auto Generated Values](https://www.objectdb.com/java/jpa/entity/generated)
 
+#### @Transient
 
++ hibernate JPA注解，该属性不与数据库字段做映射，ORM框架将忽略该属性  
+- 若实现Serilizable接口，该属性也不会被序列化  
 
 ---
 
