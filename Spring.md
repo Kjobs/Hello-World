@@ -87,7 +87,7 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 > 在JPA中，@GeneratedValue注解是为了一个实体生成一个唯一标识的主键
 
 有四种主键生成策略，被定义在枚举类GenerationType中<br/>
-1. `@Id @GeneratedValue(strategy=GenerationType.AUTO) long id;`  
+1. `@Id @GeneratedValue(strategy=GenerationType.AUTO) long id`  
 这种方式会把主键生成策略交给持久化引擎，持久化引擎会选择下面其中一种，
 由于JPA默认是AUTO方式，所以不用特意指定策略，例：`@Id @GeneratedValue long id`
 2. `@Id @GeneratedValue(strategy=GenerationType.IDENTITY) long id`  
