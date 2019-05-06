@@ -1,7 +1,7 @@
 错误日志
 ========
  
->问题：不小心删除了一些重要文件,导致无法启动Apache
+### 问题：不小心删除了一些重要文件,导致无法启动Apache
 
 再次重新部署Apache和PHP服务(Apache环境，选的是线程安全的PHP引擎）
 
@@ -20,7 +20,7 @@
 
 ---
 
-> 问题：尝试“httpd -k restart”重启过程中出现错误：AH00436: No installed service named "Apache2.4".
+### 问题：尝试“httpd -k restart”重启过程中出现错误：AH00436: No installed service named "Apache2.4".
 
 1) 搜索后在stackoverflow中找到答案:"just do a "httpd -k install" and the windows service is added to the registry"
 2) 以管理员身份运行cmd，输入命令:httpd -k install，再次输入其他http -k命令后无错误提示
@@ -76,7 +76,7 @@ mysql -u root -p
 
 ---
 
-> 问题：show databases出现错误代码
+### 问题：show databases出现错误代码
  ```
  ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement.  
 ```
