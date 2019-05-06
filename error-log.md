@@ -55,7 +55,7 @@
 
 若继续执行net start mysql还是无法启动，则需要  
 ```sql
-mysqld -remove
+> mysqld -remove
 ```  
 卸载mysql服务后，再依次执行
 ```sql
@@ -82,8 +82,7 @@ mysql -u root -p
 ```
 错误信息提示需要重设密码
  ```sql
- > UPDATE mysql.user SET Password=PASSWORD('your_new_password') 
-        WHERE User='root';
+ > UPDATE mysql.user SET Password=PASSWORD('your_new_password') WHERE User='root';
 ```
 运行代码
 ```sql
