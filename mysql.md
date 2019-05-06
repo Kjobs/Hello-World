@@ -13,30 +13,38 @@
 （6）需要在数值中使用引号时，使用转义字符。  
 
 #### 修改root密码
-update user set password=password("new_passord") where user = "root";
+```sql
+> update user set password=password("new_passord") where user = "root";
+```
 
 #### ORDER BY语句  
-`asc` 按升序排列  
-`desc` 按降序排列  	
-例  
-`select * from tablename order by id desc`
-根据id字段按照降序排列，从大到小  
-`select * from tablename order by id asc`
-根据id字段按照升序排列，从小到大
-
+按升序排列:
+`asc`  
+按降序排列 :
+`desc`  	
+例：  
+根据id字段按照降序排列，从大到小
+```sql
+> select * from tablename order by id desc
+```
+根据id字段按照升序排列，从小到大  
+```sql
+> select * from tablename order by id asc
+```
 
 #### union和union all的区别  
 + union用于合并两个或多个select语句的结果集，并消去表中任何重复项；
 - union all允许重复的值，即union all不消除重复行
 
-
-
 #### 在查询中使用正则表达式
-利用regexp或rlike命令进行拓展查询  
-`select City from Station where City regexp '^[aeiou]';`  
-`select distinct City from Station where City rlike '^[^aeiou]' or City rlike '[^aeiou]$';`
-
-
+使用regexp
+```sql
+> select City from Station where City regexp '^[aeiou]';
+```  
+使用rlike
+```sql
+> select distinct City from Station where City rlike '^[^aeiou]' or City rlike '[^aeiou]$';
+```
 
 #### 字段修改
 + MySQL中使用使用alter table语句来修改字段类型，这里注意，因为我们修改字段的名称，所以SQL语句中会出现两个t_name，这并不是写错了。例:
@@ -46,18 +54,24 @@ update user set password=password("new_passord") where user = "root";
       Records: 0  Duplicates: 0  Warnings: 0
 ```
 
-修改字段名：`alter table 表名称 change 字段名称 字段名称 字段类型 [是否允许非空]`  
-修改字段类型：`alter table 表名称 modify 字段名称 字段类型 [是否允许非空];`
+修改字段名
+```sql
+> alter table 表名称 change 字段名称 字段名称 字段类型 [是否允许非空];
+```
 
+修改字段类型
+```sql
+> alter table 表名称 modify 字段名称 字段类型 [是否允许非空];
+```
 
 + 添加表字段  
 ```sql
-alter table table1 add transactor varchar(10) not Null;
+> alter table table1 add transactor varchar(10) not Null;
 ```
 
 + 删除某一字段  
 ```sql
-ALTER TABLE mytable DROP 字段名;
+> ALTER TABLE mytable DROP 字段名;
 ```
 
 + 修改表中信息  
@@ -119,10 +133,15 @@ mysql> create table news_table(
 
 #### 将xls/txt文件导入数据库
 
-1) txt---需要将txt另存为无BOM的utf-8格式的txt文件
-使用命令`load data local infile "D:\data.txt" into table table_name;`
+1) txt---需要将txt另存为无BOM的utf-8格式的txt文件  
+```sql
+> load data local infile "D:\data.txt" into table table_name;
+```
 
 2) xls---只需将xls中的一个表另存为txt文件即可。
 
 #### 查看MySQL服务占用端口
-使用命令直接查看：`show global variables like "port"`
+使用命令直接查看
+```sql
+> show global variables like "port";
+```
