@@ -6,13 +6,14 @@
 再次重新部署Apache和PHP服务(Apache环境，选的是线程安全的PHP引擎）
 
 1. http.conf配置，似乎就是修改一下Apache24目录，然后修改一些80端口；
-2. 启动bin目录下的httpd程序启动apache服务，出现套接字错误，显示端口443错误。修改conf/extra目录下的http-ssl.conf文件中的443端口为442，再去尝试，还是出现错误；又把conf/original/extra/目录下的http-ssl.conf文件中的端口改了，居然还是没有作用。我开始怀疑人生了！直到......我关闭了一切VM服务！成功启动了，但我还是继续压抑着，WTF!
-3. 配置apache解析php；
-+ 添加LoadModule php5_module到"/php/php5apache2_4.dll";
-+ 添加AddType application/x-httpd-php .php .phtml 
-+ 添加phpinidir到"/php/" 设置php配置文件目录
-+ 将php安装目录下的php.ini-devlopment文件重命名为php.ini;
-+ 在php.ini中修改以下几项：  
+2. 启动bin目录下的httpd程序启动apache服务，出现套接字错误，显示端口443错误。修改conf/extra目录下的http-ssl.conf文件中的443端口为442，再去尝试，还是出现错误；又把conf/original/extra/目录下的http-ssl.conf文件中的端口改了，居然还是没有作用。我开始怀疑人生了！直到......我关闭了一切VM服务！成功启动了，WTF!
+
+### 配置apache解析php；
+1. 添加LoadModule php5_module到"/php/php5apache2_4.dll";
+2. 添加AddType application/x-httpd-php .php .phtml 
+3. 添加phpinidir到"/php/" 设置php配置文件目录
+4. 将php安装目录下的php.ini-devlopment文件重命名为php.ini;
+5. 在php.ini中修改以下几项：  
   ; On windows:  
 　;extension_dir = "D:/../php/ext"  
 　;extension=php_curl.dll  
@@ -92,7 +93,7 @@ mysql -u root -p
  成功修改密码。
 
 ---
-#### 可能用到的cmd命令
+#### Windows某些cmd命令
 
 查看端口监听情况  
 `netstat -ano`  
@@ -101,10 +102,41 @@ mysql -u root -p
 停止某项进程  
 `taskkill /pid 12168 /f`
 
+---
+
+### 日期：2019-05-07
+
+### 问题：.gitignore无法忽略某些配置文件
+
+> 描述：之前没有添加ignore的配置文件已经在远程分支上了，
+再在.gitignore添加响应配置文件（路径正确）后push到远程分支发现配置文件还在
+
+解决办法：在暂存区删除（工作区保留）该配置文件
+`$ git rm --cached filename`  
+再进行push，之后将不在track配置文件的更新
 
 
+### 问题：方法func()需要在Transactional注解指定rollbackFor或者在方法中显式的rollback
 
+先了解异常：
++ 可查的异常（checked exceptions）:Exception下除了RuntimeException之外的异常,如IOException和SQLException
+- 不可查的异常（unchecked exceptions）:RuntimeException及其子类和错误（Error）  
 
+若不对运行时异常进行处理，那么出现运行时异常之后，要么是线程中止，要么是主程序终止。
+
+> Spring框架的事务基础架构代码将默认地 只 在抛出运行时和unchecked exceptions时才标识事务回滚。 也就是说，当抛出个RuntimeException 或其子类例的实例时。（Errors也一样 - 默认地 - 标识事务回滚。）从事务方法中抛出的Checked exceptions将 不 被标识进行事务回滚。
+
+1. 让checked例外也回滚：在整个方法前加上 @Transactional(rollbackFor=Exception.class)
+
+2. 让unchecked例外不回滚： @Transactional(notRollbackFor=RunTimeException.class)
+
+3. 不需要事务管理的(只查询的)方法：@Transactional(propagation=Propagation.NOT_SUPPORTED)
+
+#### 如果异常被try｛｝catch｛｝了，事务就不回滚了，如果想让事务回滚必须再往外抛try｛｝catch｛throw new Exception｝。
+
+来自[博客](https://blog.csdn.net/Mint6/article/details/78363761)
+
+---
 
 
 

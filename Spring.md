@@ -36,6 +36,16 @@
 `@Retention(RetentionPolicy.RUNTIME)`// 注解会在class字节码文件中存在，在运行时可以通过反射获取到    
 4. @Inherited, 说明子类可以继承父类中的该注解  
 
+
+### 注解@Component、@Repository、@Service、@Controller区别
+
++ @Controller---控制层组件
++ @Service------业务层组件
++ @Repository---持久层组件，用于标记数据访问，即DAO组件
++ @Component----泛指组件，当组件不好归类时，可以使用这个注解进行标注  
+
+如果 Web 应用程序采用了经典的三层分层结构的话，最好在持久层、业务层和控制层分别采用 @Repository、@Service 和 @Controller 对分层中的类进行注释，而用 @Component 对那些比较中立的类进行注释
+
 ### 插件[Lombok](https://projectlombok.org/features/all)简化代码的部分注解
 
 + `@NonNull` 可以标注在方法、字段、参数之上，表示对应的值不可以为空，这样就不会出现NullPointerException
@@ -126,7 +136,7 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 #### @Transient
 
 + hibernate JPA注解，该属性不与数据库字段做映射，ORM框架将忽略该属性  
-- 若实现Serilizable接口，该属性也不会被序列化  
+- 若实现Serializable接口，该属性也不会被序列化  
 
 ---
 
@@ -183,3 +193,25 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 + 授权(Authorization)：确认用户在当前系统中是否能够执行某个操作，即用户所拥有的功能权限
 
 ---
+
+## Spring Data JPA
+
+### JpaRepository接口
+```java
+public interface JpaRepository<T,ID> extends PagingAndSortingRepository<T,ID>, QueryByExampleExecutor<T> {}
+```
+> JpaRepository继承了接口PagingAndSortingRepository和QueryByExampleExecutor；
+PagingAndSortingRepository又继承CrudRepository，因此，JpaRepository接口同时拥有了基本CRUD功能以及分页功能。
+
+Repository继承两个接口
+```java
+public interface EntityRepository<TKey extends Serializable, TEntity extends Entity<TKey>>
+        extends JpaRepository<TEntity, TKey>, JpaSpecificationExecutor<TEntity> {
+}
+```
+若查询是不带查询条件(例只做列表展示和分页)的，则只需继承JpaRepository接口即可；若查询带查询条件则需要继承JpaSpecificationExecutor接口。
+
+### @Temporal
++ @Temporal(TemporalType.DATE)实体类会封装成日期“yyyy-MM-dd”的Date类型
++ @Temporal(TemporalType.TIME)实体类会封装成时间“hh-MM-ss”的Date类型
++ @Temporal(TemporalType.TIMESTAMP)实体类会封装成完整的时间“yyyy-MM-dd hh:MM:ss”的Date类型

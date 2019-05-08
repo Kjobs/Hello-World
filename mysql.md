@@ -21,8 +21,7 @@
 按升序排列:
 `asc`  
 按降序排列 :
-`desc`  	
-例：  
+`desc`   
 根据id字段按照降序排列，从大到小
 ```sql
 > select * from tablename order by id desc
