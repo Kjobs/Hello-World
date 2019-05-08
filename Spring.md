@@ -56,7 +56,7 @@
 + `@EqualsAndHashcode` 从对象的字段中生成hashCode和equals的实现
 + `@NoArgsConstructor`,`@RequiredArgsConstructor` 和 `@AllArgsConstructor`自动生成构造方法
 + `@Data` 自动生成set/get方法，toString方法，equals方法，hashCode方法，不带参数的构造方法
-+ `@Value` 用于注解final类（不可变且不允许被继承）
++ `@Value` 用于注解final类（不可变且不允许被继承），把特殊的值注入到成员变量中
 + `@Builder`  产生复杂的构建器api类
 + `@SneakyThrows` 异常处理（谨慎使用）
 + `@Synchronized` 同步方法安全的转化
@@ -142,16 +142,28 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 
 ## maven  
 
+### 配置Maven本地资源库
+
+> maven默认的LocalRepository在Windows下是放在目录`${user.home}/.m2/repository`下的
+
+考虑到重装、恢复系统，因此建议修改默认LocalRepository地址
+1. 在maven目录下新建repository文件夹
+
+2. 在maven目录下`/conf/setting.xml`文件中添加  
+```xml
+<localRepository>D:/maven/repository</localRepository>
+```
+
+
 ### POM文件  
-1. 每个POM文件需要project元素和三个必须的字段：GroupId，ArtifactId和version
+1. 每个POM文件需要project元素和三个必须的字段：GroupId(eg, "org.\*", "com.\*")，ArtifactId(项目名称，如hello-world)和version
 2. POM.xml的根元素是project，他有三个主要的子节点
  ```xml
  <parent>
-    <group>工程组的标识</group>
+    <groupId>工程组的标识</groupId>
     <artifactId>工程的标识</artifactId>
     <version>工程的版本号</version>
 </parent>
-
 ```
 
 ### mvn常见命令
