@@ -138,11 +138,42 @@ mysql -u root -p
 
 ---
 
+### 日期：2019-05-09
 
+### 问题：spring boot自动注入@Autowired出现Consider defining a bean of type 'xxx' in your configuration
 
+```log
+Description:
 
+Field userService in xxxx.controllers.UserController required a bean of type 'xxxx.service.UserService' that could not be found.
 
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
 
+Action:
+
+Consider defining a bean of type 'xxxx.service.UserService' in your configuration.
+```
+
+提示说无法找到一个指定自动注入类型的bean，正常情况下加上@Component注解的类会自动被Spring扫描到生成bean注册的Spring容器中，
+而@Component相当于@Service@Controller和@Repository的作用，没有加上任何一个注解，自然无法被识别。
+
+解决办法
++ 将接口与对应的实现类放在application启动类的同一个目录或子目录下，这样注解就可以被扫描到；
+- 在对应的实现类上加上注解@Component或@Service
++ 在指定的application类加上注解@ComponentScan(basePackages={"service","service.Impl"});
+
+### 问题：如下
+
+```log
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userRepository': Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: This class [class com.xxx.xxx.xxx.xxxxx] does not define an IdClass
+```
+
+原因：在实体中增加了多个@Id注解（注意父类中的@Id注解定义的Id）
+
+### 问题:PropertyReferenceException: No property findOne found for type 
+
+原因：没有实现特有的repository数据库访问，只需加上为数据访问加上@Query即可
 
 
 
