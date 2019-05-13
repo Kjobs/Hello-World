@@ -95,9 +95,19 @@ mysql -u root -p
 ---
 #### Windows某些cmd命令
 
-查看端口监听情况  
+查看所有端口监听情况  
 `netstat -ano`  
 > TCP 127.0.0.1:8088  0.0.0.0:0  LISTENING 12168
+
+查询指定端口的进程号  
+`netstat -ano|findstr 8080`
+>  TCP  0.0.0.0:8080  0.0.0.0:0  LISTENING  4028
+
+查找进程号对应的进程名称  
+`tasklist|findstr 4028`  
+> httpd.exe 4028 Services   0   744 K
+
+这里的http.exe就是进程名称，是Appache服务器的运行程序
 
 停止某项进程  
 `taskkill /pid 12168 /f`
