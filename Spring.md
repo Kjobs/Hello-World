@@ -2,6 +2,7 @@
   * [Spring](##Spring)
     * [IoC和DI](#IoC和DI) 
     * [元注解](#元注解)
+    * [@Component、@Repository、@Service和@Controller](#注解componentrepositoryservicecontroller)
     * [Lombok](#插件Lombok简化代码的部分注解)
   * [Spring Boot](#SpringBoot) 
     * [CLI](#clispring-boot-commad-line)
@@ -56,7 +57,7 @@
 4. @Inherited, 说明子类可以继承父类中的该注解  
 
 
-### 注解@Component、@Repository、@Service、@Controller区别
+### 注解@Component、@Repository、@Service、@Controller
 
 + @Controller---控制层组件
 + @Service------业务层组件
@@ -249,7 +250,6 @@ public interface EntityRepository<TKey extends Serializable, TEntity extends Ent
 
 
 
-[TOC]
 
 
 
