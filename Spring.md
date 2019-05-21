@@ -1,3 +1,7 @@
+[TOC]  
+
+# 目录
+
 ## Spring
 
 ### IoC和DI
@@ -226,4 +230,15 @@ public interface EntityRepository<TKey extends Serializable, TEntity extends Ent
 ### @Temporal
 + @Temporal(TemporalType.DATE)实体类会封装成日期“yyyy-MM-dd”的Date类型
 + @Temporal(TemporalType.TIME)实体类会封装成时间“hh-MM-ss”的Date类型
-+ @Temporal(TemporalType.TIMESTAMP)实体类会封装成完整的时间“yyyy-MM-dd hh:MM:ss”的Date类型
++ @Temporal(TemporalType.TIMESTAMP)实体类会封装成完整的时间“yyyy-MM-dd hh:MM:ss”的Date类型  
+
+
+
+
+
+
+
+
+
+
+
