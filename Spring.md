@@ -4,11 +4,18 @@
     * [元注解](#元注解)
     * [Lombok](#插件Lombok简化代码的部分注解)
   * [Spring Boot](#SpringBoot) 
+    * [CLI](#clispring-boot-commad-line)
+    * [Spring Boot Annotation](#spring-boot-annotation)
   * [Maven](#maven)
-  * [Swagger API](#swagger API)
-  * [Spring Data JPA](#Spring Security)
-  * [Spring Security](#Spring Data JPA)
-    
+    * [配置maven本地资源库](#配置maven本地资源库)
+    * [pom文件](#pom文件)
+  * [Swagger API](#swagger-api)
+  * [Spring Data JPA](#Spring-Security)
+  * [Spring Security](#Spring-Data-JPA)
+    * [JpaRepostory接口](#jparepository接口)
+    * [@Temporal注解](#temporal)
+   
+--- 
     
 ##Spring
 
