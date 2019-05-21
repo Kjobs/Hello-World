@@ -1,8 +1,16 @@
-[TOC]  
-
-# 目录
-
-## Spring
+* [目录](#--)
+  * [Spring](##Spring)
+    * [IoC和DI](#IoC和DI) 
+    * [元注解](#元注解)
+    * [Lombok](#插件Lombok简化代码的部分注解)
+  * [Spring Boot](#SpringBoot) 
+  * [Maven](#maven)
+  * [Swagger API](#swagger API)
+  * [Spring Data JPA](#Spring Security)
+  * [Spring Security](#Spring Data JPA)
+    
+    
+##Spring
 
 ### IoC和DI
 
@@ -234,7 +242,7 @@ public interface EntityRepository<TKey extends Serializable, TEntity extends Ent
 
 
 
-
+[TOC]
 
 
 
