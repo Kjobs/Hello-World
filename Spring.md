@@ -2,7 +2,6 @@
   * [Spring](##Spring)
     * [IoC和DI](#IoC和DI) 
     * [元注解](#元注解)
-    * [@Component、@Repository、@Service和@Controller](#注解componentrepositoryservicecontroller)
     * [Lombok](#插件Lombok简化代码的部分注解)
   * [Spring Boot](#SpringBoot) 
     * [CLI](#clispring-boot-commad-line)
@@ -14,11 +13,10 @@
   * [Spring Data JPA](#Spring-Security)
   * [Spring Security](#Spring-Data-JPA)
     * [JpaRepostory接口](#jparepository接口)
-    * [@Temporal注解](#temporal)
    
 --- 
     
-##Spring
+## Spring
 
 ### IoC和DI
 

@@ -185,6 +185,27 @@ Caused by: org.springframework.beans.factory.BeanCreationException: Error creati
 
 原因：没有实现特有的repository数据库访问，只需加上为数据访问加上@Query即可
 
+---
 
+### 日期：2019-05-15
 
+问题：本地master分支无法push到远程origin分支
+
+```
+$ git push origin master
+ssh: Could not resolve hostname github.com: Name or service not known
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+```
+
+在SSH Key还存在的情况下，不知是什么原因导致无法建立SSH connection，因此需要重新认证
+
+尝试  
+`$ ssh -T git@github.com`
+
+得到信息  
+`You've successfully authenticated, but GitHub does not provide shell access.`  
+重新与远程库建立连接，并成功推送
 
