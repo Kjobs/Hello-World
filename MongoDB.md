@@ -52,6 +52,7 @@ db.createUser(
 `> mongo --port 27017 -u "myUserAdmin" -p "abc123" --authenticationDatabase "admin"`
 
 运气好的话，上面那个warring就可以消失了-_-
+> 第二天连接服务似乎又出现了-_-
 
 #### 插入数据出现错误
 
