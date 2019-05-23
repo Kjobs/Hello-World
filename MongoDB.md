@@ -1,4 +1,4 @@
-### 安装
+### MongoDB学习记录
 
 #### 下载安装
 
@@ -66,5 +66,10 @@ WriteCommandError({
 ```
 
 原因：没有操作权限，通过`db.getUsers()`也发现没有用户，需要添加用户（方法同创建管理员，需注意roles类型）
+
+#### 操作符（详情[戳这里](https://docs.mongodb.com/manual/reference/operator/)）
+1. 查询
+2. 投影
+3. 更新
 
 
