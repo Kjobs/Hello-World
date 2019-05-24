@@ -41,7 +41,7 @@ Git常用命令
 `$ git diff HEAD -- file`  
 
 * 文件在工作区的修改全部撤销，回到最近commit或add的状态。无论是修改后还没有放到暂存区还是添加到了暂存区又作了修改  
-`$ git checkout .`
+`$ git checkout .`  
 `$ git checkout -- file`(单个文件)   
 
 * 如果工作区文件被删除，可以选择  
@@ -51,8 +51,8 @@ Git常用命令
 * 建立远程连接，添加到远程仓库以及添加SSH Key后  
 `$ git remote add origin git@github.com:GitHub ID/repo.git`  
 
-* 推送本地分支到远程分支
-`$ git push <远程主机名> <本地分支名>:<远程分支名>`
+* 推送本地分支到远程分支  
+`$ git push <远程主机名> <本地分支名>:<远程分支名>`  
 `$ git push -u origin master`将本地仓库（首次）推送到github    
 `$ git push origin master`通过此命令推送最新修改至github    
 参数说明：若当前分支与多个主机存在追踪关系，则可以通过-u指定默认主机，之后可以不加任何参数使用git push<br/>
