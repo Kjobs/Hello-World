@@ -29,7 +29,7 @@ Windows:[下载位置](https://www.mongodb.com/download-center/community)
 
 > Access control is not enabled for the database.Read and write access to data and configuration is unrestricted.
 
-原因：在连接MongDB服务时，服务器希望建立安全连接，所以需要创建一个管理员角色的用户进行操作
+原因：在连接MongDB服务时，服务器希望建立安全连接，所以需要创建一个管理员(admin)角色的用户进行操作
 
 创建管理员
 ```
@@ -52,7 +52,7 @@ db.createUser(
 `> mongo --port 27017 -u "myUserAdmin" -p "abc123" --authenticationDatabase "admin"`
 
 运气好的话，上面那个warring就可以消失了-_-
-> 第二天连接服务似乎又出现了-_-
+> 第二天连接服务似乎又出现了-_-貌似是因为没有加`--auth`参数，重启服务需要加上这个参数，表示以用户认证方式连接服务
 
 #### 插入数据出现错误
 
