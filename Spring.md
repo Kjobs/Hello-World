@@ -10,8 +10,8 @@
     * [配置maven本地资源库](#配置maven本地资源库)
     * [pom文件](#pom文件)
   * [Swagger API](#swagger-api)
-  * [Spring Data JPA](#Spring-Security)
-  * [Spring Security](#Spring-Data-JPA)
+  * [Spring Security](#Spring-Security)
+  * [Spring Data JPA](#Spring-Data-JPA)
     * [JpaRepostory接口](#jparepository接口)
    
 --- 
@@ -36,6 +36,23 @@
 
 4. 注入了什么：就是注入某个对象所需要的外部资源（包括对象、资源、常量数据）。
 
+### 面向切面编程(Aspect Oriented Programming, AOP)
+
+面向切面编程，指扩展功能不修改源代码，直接从业务逻辑代码中分离出来。
+
+> 纵向为去重复，横向为提取
+
+* 主要功能：日志记录、性能统计、安全控制、事务以及异常处理等；  
+
+将上述功能代码从主要业务逻辑代码中分离出来，独立到非业务逻辑代码的方法中，进而实现在改变这些行为的时候不影响主要业务逻辑功能。
+
+基本术语  
+1. join point(连接点)——是程序执行中的一个精确执行点；如类中的一个方法，是抽象概念，实现时不需要定义具体的join point
+2. point cut(切入点)——本质上是一个捕获连接点的结构；在类中可以直接定义，用来捕获相关方法的调用
+3. advice(通知)——是point cut的执行代码，“执行”的具体逻辑
+4. aspect(切面)——point cut和advice结合起来就是aspect，类似于OOP中定义的一个类，但它代表的更多是对象间横向的关系。
+
+最重要的作用：写代码时实现只需要考虑主流程，而不需要考虑那些不重要的流程
 
 ### 元注解
 1. @Document，说明该注解被包含在javadoc中；
