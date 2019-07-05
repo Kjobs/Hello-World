@@ -107,8 +107,9 @@ SHOW PROCESSLIST;
 ```
 
   
-#### 修改记录
-例：创建一个新闻表：
+#### 修改表
+
+创建表，例：创建一个新闻表：
 ```sql
 mysql> create table news_table(
      > id int(5) primary key not null auto_increment,
@@ -118,9 +119,31 @@ mysql> create table news_table(
      > source varchar(15) not null,
      > type varchar(20) not null);
 ```
+
+复制表
+```sql
+/* 复制表结构 */
+create table table_name like other_table_name;
+
+/* 复制表结构和数据 */
+create table table_name as select * from other_table_name;
+```
+
+表结构处理
+```sql
+-- 检查表是否有错误
+    CHECK TABLE tbl_name [, tbl_name] ... [option] ...
+-- 优化表
+    OPTIMIZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ...
+-- 修复表
+    REPAIR [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ... [QUICK] [EXTENDED] [USE_FRM]
+-- 分析表
+    ANALYZE [LOCAL | NO_WRITE_TO_BINLOG] TABLE tbl_name [, tbl_name] ...
+```
+
 删除重复记录  
 ```sql
-> delete from edu_news where id not in (select * from (select max(id) from edu_news group by title having count(id) > 1) as b);
+> delete from table_name where id not in (select * from (select max(id) from table_name group by title having count(id) > 1) as b);
 ```
 
 
@@ -207,3 +230,12 @@ explain命令每个字段的说明
 * EXPLAIN不能显示MySQL在执行查询时所作的优化工作
 * 部分统计信息是估算的，并非精确值
 * EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划
+
+
+#### 建表规范，设计三范式
++ 1NF，第一范式  
+要求有主键，并且要求每一个字段的原子性不可再分
++ 2NF，第二范式  
+满足第一范式的情况下，要求所有非主键字段完全依赖主键，不能产生部分依赖
++ 3NF，第三范式  
+满足第二范式的情况下，所有非主键字段和主键字段之间不能产生传递依赖（某个字段依赖于主键，而有其他字段依赖于该字段）
