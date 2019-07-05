@@ -1,6 +1,19 @@
 ### SQL语句
 
-#### 修改root密码
+#### 数据库操作
+
+安装mysql服务：`mysqld --install;`  
+启动mysql：`net start mysql;`  
+进入mysql：`mysql -h addr -p port -u user -p pass;`  
+
+查看哪些进程正在运行
+```sql
+SHOW PROCESSLIST;
+```
+
+#### 用户密码
+
+修改密码,密码加密函数password()
 ```sql
 > update user set password=password("new_passord") where user = "root";
 ```
