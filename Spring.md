@@ -196,14 +196,35 @@ set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 1. 每个POM文件需要project元素和三个必须的字段：GroupId(eg, "org.\*", "com.\*")，ArtifactId(项目名称，如hello-world)和version
 2. POM.xml的根元素是project，他有三个主要的子节点
  ```xml
- <parent>
-    <groupId>工程组的标识</groupId>
-    <artifactId>工程的标识</artifactId>
-    <version>工程的版本号</version>
-</parent>
+<project>
+...
+    <parent>
+         <groupId>工程组的标识</groupId>
+         <artifactId>工程的标识</artifactId>
+         <version>工程的版本号</version>
+    </parent>
+ ...
+</project> 
 ```
 
 ### mvn常见命令
+
+`mvn --help`——帮助  
+`mvn --version/-v`——显示版本信息  
+`mvn package`——生成target目录，编译、测试代码，生成测试报告、jar/war文件  
+`mvn clean`——清空生成文件  
+`mvn compile`——编译  
+`mvn test`——编译并测试  
+
+可接受参数
++ -D 指定参数，如 -Dmaven.test.skip=true 跳过单元测试；
++ -P 指定 Profile 配置，可以用于区分环境；
++ -e 显示maven运行出错的信息；
++ -o 离线执行命令,即不去远程仓库更新包； 
++ -X 显示maven允许的debug信息；
++ -U 强制去远程更新snapshot的插件或依赖，默认每天只更新一次
+
+更多可见:[Maven Apache Project](https://maven.apache.org/index.html)
 
 <br>
 
