@@ -201,7 +201,7 @@ create table table_name as select * from other_table_name;
 
 
 ### MySQL EXPLAIN
-> explain命令可以获取select语句的执行计划，在查询性能优化中是很重要的部分
+> explain命令可以获取select语句的执行计划，在查询性能优化中是很重要的部分，可以开发人员帮助选择更好的索引和写出更优化的查询语句
 
 #### Explain Output Column
 
@@ -210,7 +210,7 @@ explain命令每个字段的说明
 | 字段 | 说明 |
 | :---: | :---: |
 |id|执行编号，标识select所属的行，按select出现的顺序增长，id越大优先级越高，越先被执行|
-|select_type|每个select子句的类型，简单或复杂查询
+|select_type|每个select子句的类型，简单或复杂查询，例：simple\primary\union\derived
 |table|访问引用的表名（或某个查询的引用，如“derived1”）
 |partitions|若是基于分区表的查询，显示将访问的分区
 |type|MySQL在表中找到所需行的方式，关联或访问类型（ALL、index、range、ref、eq_ref、const/system、NULL）
@@ -218,9 +218,9 @@ explain命令每个字段的说明
 |key|显示MySQL实际使用的键（索引）来做优化查询
 |key_len|显示索引字段的最大可能长度（字节数），根据表定义来计算的
 |ref|显示之前的表在key列记录的索引中查询值所用的列或常量
-|rows|根据表统计信息及索引选用情况，估算找到所需记录所需要读取的行数
+|rows|根据表统计信息及索引选用情况，估算找到所需记录所需要读取的行数，在innodb上是不准确的
 |filtered|
-|Extra|额外信息，如using index、filesort等
+|Extra|额外信息，执行状态说明，如using index、Using where、filesort等
 
 
 补充说明
