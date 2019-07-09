@@ -134,6 +134,23 @@ set PATH=D:\bin路径;%PATH%
 set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 ```  
 
+### devtools热部署
+
+1. 添加maven依赖
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+2. 在application.properties或application.yml中添加相关配置，例：
+```
+spring.devtools.restart.enabled=true    ——表示允许重启项目
+spring.devtools.restart.additional-paths=src/main/java/    ——该路径下修改文件会自动重启项目
+```
+
+
 ### Spring Boot Annotation
 
 #### @RestController
