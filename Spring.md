@@ -251,11 +251,15 @@ spring.devtools.restart.additional-paths=src/main/java/    ——该路径下修
 ## swagger API
 
 ### 配置依赖
+1. 添加Maven依赖
+2. 创建Swagger2配置类  
+通过@Configuration注解，让Spring来加载该类配置。再通过@EnableSwagger2注解来启用Swagger2;
+主要包括两个：创建Docket的Bean，实现函数apiInfo()用来创建Api的基本信息。
+3. 为接口函数添加Api注解
 
-#### Springboot添加依赖
+若要在Swagger2 Api中实现权限控制，需要在创建Docket时加上securitySchemes、securityContexts的相关配置
 
-
-### 常用注解  
+### 常用Api注解  
 1）@Api用于类  
 > 参数说明：url{路径信息}  
 
