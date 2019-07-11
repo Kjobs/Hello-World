@@ -249,8 +249,13 @@ spring.devtools.restart.additional-paths=src/main/java/    ——该路径下修
 ---
 
 ## swagger API
-  
-常用的三种注解  
+
+### 配置依赖
+
+#### Springboot添加依赖
+
+
+### 常用注解  
 1）@Api用于类  
 > 参数说明：url{路径信息}  
 
