@@ -11,16 +11,28 @@
 5. 在==比较时只会经历拆箱过程，在=赋值时会出现同时装箱和拆箱过程
 
 ### String, StringBuilder and StringBuffer区别
-1. 可变性（）
+1. 可变性（mutable）
 + String不可变
 - StringBuilder和StringBuffer可变
 
-2. 线程安全（）
+2. 线程安全（thread-safe）
 * String不可变，因此是线程安全的
 * StringBuilder不是线程安全的
 * StringBuffer是线程安全的，内部使用synchronized进行同步  
 
-因此在单线程应用中使用StringBuilder更好，相比StringBuffer更高效
+注：因此在单线程应用中使用StringBuilder更好，相比StringBuffer更高效
+
+### "=="和equals的区别
+
+#### Java中的数据类型与"=="
++ 基本数据类型（byte,short,char,int,long,float,double,boolean）之间的比较是比较他们的值；
+- 引用数据类型用"=="比较的时候是比较他们在（堆）内存中的存放地址  
+
+注：对于第二种类型，若为同一个new出来的对象，则比较结果为true；否则为false。因为没new一个对象都会重新开辟新的堆内存空间
+
+#### equals()方法
+复合数据类型之间进行equals比较，在没有覆盖方法的情况下，他们之间的比较还是内存中存放位置的地址值，与"=="的结果是一样的   
+即“内容比较”，可以理解为引用对象的值的"=="比较（个人理解）
 
 ### 关键字final
 
