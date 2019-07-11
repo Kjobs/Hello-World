@@ -5,6 +5,7 @@
     * [Lombok](#插件Lombok简化代码的部分注解)
   * [Spring Boot](#SpringBoot) 
     * [CLI](#clispring-boot-commad-line)
+    * [Devtools热部署](#devtools热部署)
     * [Spring Boot Annotation](#spring-boot-annotation)
   * [Maven](#maven)
     * [配置maven本地资源库](#配置maven本地资源库)
