@@ -10,6 +10,18 @@
 4. 两个new出来的Integer永远不相等，在堆中的不同位置；
 5. 在==比较时只会经历拆箱过程，在=赋值时会出现同时装箱和拆箱过程
 
+### String, StringBuilder and StringBuffer区别
+1. 可变性（）
++ String不可变
+- StringBuilder和StringBuffer可变
+
+2. 线程安全（）
+* String不可变，因此是线程安全的
+* StringBuilder不是线程安全的
+* StringBuffer是线程安全的，内部使用synchronized进行同步  
+
+因此在单线程应用中使用StringBuilder更好，相比StringBuffer更高效
+
 ### 关键字final
 
 #### 修饰类
