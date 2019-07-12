@@ -88,13 +88,12 @@ Set|不需要保留存储顺序，并且需要去掉重复元素
 ---
 ### 继承
 
-#### extends()
-> 继承（实现）父类，可以覆盖父类定义的变量或函数
+#### extends和implements
+> extends继承（实现）父类，可以覆盖父类定义的变量或函数
 
-#### implements()
-> 继承（实现）父类，不可以覆盖父类定义的变量或函数，即使定义了相同的变量或函数也会被父类取代
+> implements继承（实现）父类，不可以覆盖父类定义的变量或函数，即使定义了相同的变量或函数也会被父类取代
 
-#### extends和implements的区别 
+extends和implements的区别 
 + extends：若是继承父类，不能多继承，但接口可以多继承（extends）接口 
 - implements：一个类实现继承（实现）接口
 
@@ -123,6 +122,7 @@ final关键字修饰的类不能被继承
 
 
 ---
+
 ### Java 序列化
 
 Java序列化是一种用来处理对象流（流化对象内容）的机制，主要有两个目的
@@ -150,6 +150,19 @@ Java的序列化机制是通过在运行时判断类的serialVersionUID来验证
 两种生成方式
 + 默认的1L，如：`private static final long serialversionUID = 1L; `
 - 根据类命、接口名、成员方法及属性等生成一个64位的Hash字段(xxxxL)
+
+#### 对象的读写
+
++ Java类中对象的序列化工作是通过ObjectInputStream和ObjectOutputStream来完成的
+- 使用readObject()和writeObject()来实现对象的读写操作，对于基本数据类型，例如int，而已用readInt()和writeInt()接口实现，其他基本类型类似
+
+注：对象读取的顺序必须与写入的顺序相同
+
+#### transient关键字
+
+如果某个实例或对象不能或不应该被序列化，则可以用transient关键字进行标记（Spring中可以是添加@Transient注解）,以跳过序列化过程  
+
+注：若有不能被序列化的对象而没有标注transient关键字，则会抛出NotSerializableException异常
 
 ---
 
