@@ -85,12 +85,15 @@ mysql -u root -p
  ```sql
  > UPDATE mysql.user SET Password=PASSWORD('your_new_password') WHERE User='root';
 ```
-运行代码
-```sql
-> SET PASSWORD=PASSWORD('your_new_password');
-```
+运行代码  
 `Query OK, 0 rows affected, 1 warning (0.00 sec)`   
  成功修改密码。
+ 
+2019-08-01更新  
+修改命令似乎不支持8.0版本，需改为：
+```sql
+alter USER 'root'@'localhost' identified by 'your_new_password';
+```
 
 ---
 #### Windows某些cmd命令
