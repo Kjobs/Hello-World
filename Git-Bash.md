@@ -31,6 +31,7 @@ Git常用命令
 
 * 回退版本到某个节点  
 `$ git reset --hard HEAD`(不保留修改)   
+`$ git reset --hard 0c15f14`(回退至查询到的某个版本节点，节点一般只写7位数)  
 `$ git reset --hard HEAD~100`  
 `$ git reset --soft HASH`(保留修改)  
 
@@ -45,18 +46,22 @@ Git常用命令
 `$ git checkout -- file`(单个文件)   
 
 * 如果工作区文件被删除，可以选择  
-`$ git rm file`从版本库（暂存区）中删除  
-`$ git checkout -- file`用版本库（暂存区）中的文件替换工作区的文件，相当于“还原”  
+`$ git rm file`——从版本库（暂存区）中删除  
+`$ git checkout -- file`——用版本库（暂存区）中的文件替换工作区的文件，相当于“还原”  
+
+* 删除远程分支文件，保留本地文件  
+`$ git rm -r --cached file_path/file_name`(删除后再推送更新)
 
 * 建立远程连接，添加到远程仓库以及添加SSH Key后  
 `$ git remote add origin git@github.com:GitHub ID/repo.git`  
 
 * 推送本地分支到远程分支  
 `$ git push <远程主机名> <本地分支名>:<远程分支名>`  
-`$ git push -u origin master`将本地仓库（首次）推送到github    
-`$ git push origin master`通过此命令推送最新修改至github    
-参数说明：若当前分支与多个主机存在追踪关系，则可以通过-u指定默认主机，之后可以不加任何参数使用git push<br/>
-说明：git push若无本地分支名(master)则会删除远程分支（推送空的分支到origin）
+`$ git push -u origin master`——将本地仓库（首次）推送到github    
+`$ git push origin master`——通过此命令推送最新修改至github    
+`$ git push -f origin master`——强制推送更新
+> 参数说明：若当前分支与多个主机存在追踪关系，则可以通过-u指定默认主机，之后可以不加任何参数使用git push<br/>
+> 说明：git push若无本地分支名(master)则会删除远程分支（推送空的分支到origin）
 
 * 从远程库克隆到本地    
 `$ git clone git@github.com:**(github ID)/Hello-World.git`  
