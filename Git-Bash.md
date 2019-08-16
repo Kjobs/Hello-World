@@ -89,6 +89,9 @@ Git常用命令
 
 * 查看当前分支  
 `$ git branch`  
+`$ git branch -a`——查看本地和远程所有分支  
+`$ git branch -r`——查看远程版本库所有分支  
+`$ git branch -vv`——查看本地分支对应的远程分支  
 
-* 删除dev分支  
+* 删除dev分支(若存在未merge的提交，则删除会失败；参数'-D'表示强制删除)  
 `git branch -d dev`  
