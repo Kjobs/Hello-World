@@ -135,6 +135,10 @@ set PATH=D:\bin路径;%PATH%
 set PATH=D:\release目录\spring-boot-cli-2.1.4.RELEASE\bin;%PATH%
 ```  
 
+### mysql连接time zone错误
+
+在配置连接url中加入参数`serverTimezone=GMT%2B8`
+
 ### devtools热部署
 
 1. 添加maven依赖
