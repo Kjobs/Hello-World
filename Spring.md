@@ -4,7 +4,7 @@
     * [元注解](#元注解)
     * [Lombok](#插件Lombok简化代码的部分注解)
   * [Spring Boot](#SpringBoot) 
-    * [CLI](#clispring-boot-commad-line)
+    * [CLI](#CLI(Spring Boot Command Line))
     * [Devtools热部署](#devtools热部署)
     * [Spring Boot Annotation](#spring-boot-annotation)
   * [Maven](#maven)
@@ -126,7 +126,7 @@
 
 ## SpringBoot
 
-### CLI(Spring Boot Commad Line)
+### CLI(Spring Boot Command Line)
 > 是一个命令行工具，可以用它来快速构建Spring原型应用。
   
 windows下安装cmd命令  

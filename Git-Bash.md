@@ -62,6 +62,28 @@ Git常用命令
 
 ---
 
+### 标签管理
+
+* 查看标签  
+`$ git tag`
+
+* 给指定版本打上标签  
+`$ git tag -a <tagname> <version_id> -m "tag description"`
+
+* 推送标签  
+`$ git push origin <tagname>`
+
+* 一次性推送全部标签
+`$ git push origin --tags`  
+
+* 删除标签(远程仓库中不会移除这个标签)  
+`$ git tag -d <tagname>`
+
+* 删除远程仓库的标签  
+`$ git push origin :refs/tags/<tagname>`
+
+---
+
 ### 远程仓库
 
 * 建立远程连接，添加到远程仓库以及添加SSH Key后  
