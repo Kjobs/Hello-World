@@ -77,4 +77,51 @@ WriteCommandError({
 2. 投影
 3. 更新
 
+### 建立索引
 
+MongoDB默认会为插入的文档生成_id字段（如果应用本身没有指定该字段），_id是文档唯一的标识，为了保证能根据文档id快递查询文档，MongoDB默认会为集合创建_id字段的索引。
+
+MongoDB支持多种类型的索引，包括单字段索引、复合索引、文本索引等。
+
+#### 单字段索引
+```
+> db.collection.createIndex({name:1})
+```
+上述语句针对name域建立了索引，{name:1}表示升序索引，{name:-1}表示降序索引。对于单字段索引，升序/降序效果是一样的。
+
+#### 复合索引
+```
+> db.collection.createIndex({name1:1, name2:1})
+```
+上述语句中的复合索引是先对name1排序，再在name1相同基础上对name2进行排序。另外，不光能满足多个字段组合起来的查询，也能满足能匹配复合索引前缀的查询;  
+例{name1:1}就是{name1:1, name2:1}的前缀，所以类似 `db.collection.find({name1:"value"})` 的查询也可以通过该索引来加速。
+但类似 `db.collection.find({name1:"value"})` 的查询则无法使用该复合索引，需要建立另外的复合索引  
+```
+db.collection.find({name2:1, name1:1})
+```
+若name1字段取值有限，即拥有相同name1字段的文档会有很多；而name2字段较丰富，相同那么字段的文档比较少——
+则可以考虑先按name2查找，再在相同name2的文档里查找指定name1字段值的文档。所以在建立复合索引时，应把name2字段放在前面，name1置后.
+
+#### 多键索引(Multikey index)
+当索引的field为数组时,多key索引会为数组里的每一个元素建立一条索引，例(查相同兴趣爱好)：
+```
+{"name" : "jack", "age" : 19, habbit: ["football, runnning"]}
+db.person.createIndex( {habbit: 1} )  // 自动创建多key索引
+db.person.find( {habbit: "football"} )
+```
+
+#### 复合多键索引
+针对多键索引，也可以建立相应的复合索引，查询条件与之前的复合索引类似。只是有一点限制：  
+
++ 复合多键索引的索引域(field)最多只有一个是数组  
+
+例：
+```
+{ _id: 1, a: [ 1, 2 ], b: [ 1, 2 ], description: "a and b - both arrays" }
+```
+不能创建索引`{a:1, b:1}` ，因为a和b都是数组；  
+```
+{ _id: 1, a: [1, 2], b: 1, description: "a array" }
+{ _id: 2, a: 1, b: [1, 2], description: "b array" }
+```
+则都可以创建索引`{a:1, b:1}` ，因为每个文档的索引域都只有一个是数组
