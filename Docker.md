@@ -6,11 +6,59 @@
 
 2. 编译Dockerfile文件`docker build -t image_name .`
 
-3. 为镜像创建容器，并指定端口映射`docker run -d --name container_name -p 8080:8080 image_name`
+3. 根据镜像创建容器，并指定端口映射`docker run -d --name container_name -p 8080:8080 image_name`
 
 4. 查看容器是否创建并运行成功`docker ps`
 
-5. 查看容器日志`docker logs -f -tail 100 container_id`
+5. 查看容器日志`docker logs container_id`
+
+### 基础操作命令
+
+列出容器
+```
+docker ps [OPTIONS]
+```
+参数说明：  
+[-a] &nbsp;&nbsp; 显示全部容器，包括未运行的  
+[-q] &nbsp;&nbsp; 只显示容器编号  
+[-n] &nbsp;&nbsp; 列出最新创建的n个容器
+
+删除容器
+```
+docker rm [OPTIONS] container
+```
+参数说明：  
+[-f] &nbsp;&nbsp; 强制删除一个正在运行的容器    
+[-l] &nbsp;&nbsp; 容器间的网络连接，而非容器本身  
+[-v] &nbsp;&nbsp; 删除与容器关联的卷
+
+查看容器运行的进程信息
+```
+docker top container
+```
+
+查看容器运行日志
+```
+docker logs [OPTIONS] container
+```
+参数说明：  
+[-f] &nbsp;&nbsp; 跟踪最新日志输出  
+[-t] &nbsp;&nbsp; 显示时间戳  
+[--tail] &nbsp;&nbsp; 后面加上数字n表示列出n条日志信息  
+
+列出镜像
+```
+docker images [OPTIONS]
+```
+参数说明：  
+[-a] &nbsp;&nbsp; 列出所有镜像
+[-q] &nbsp;&nbsp; 只显示镜像ID  
+
+
+获取容器/镜像的元数据
+```
+docker inspect name|id
+```
 
 ### Dockerfile文件
 
@@ -46,7 +94,26 @@ USER:指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定
 
 > 文件格式可以指定yml或yaml
 
+#### 配置network
 
+docker之所以这么强大是因为它不仅支持容器间相互通信，还支持非docker的工作空间的连接（详情见docker-network[文档](https://docs.docker.com/network/)）。
+故配置networks通常用于集群服务，以解决网络隔离问题。
+
+可以在docker种自定义桥接网络  
+```
+docker network create network_name
+```
+在docker-compose.yml文件中使用
+```
+services:
+    networks:
+      - custom_network
+          
+networks:
+  custom_network:
+    external:
+      name: network_name
+```
 
 ### Docker + Jenkins 自动化部署
 
