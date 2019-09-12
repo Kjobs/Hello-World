@@ -3,6 +3,7 @@
     * [IoC和DI](#IoC和DI) 
     * [元注解](#元注解)
     * [Lombok](#插件Lombok简化代码的部分注解)
+    * [Bean](#Spring-Bean)
   * [Spring Boot](#SpringBoot) 
     * [CLI](#CLI)
     * [Devtools热部署](#devtools热部署)
@@ -121,6 +122,23 @@
   > `(" ", "  ")`
 + @NotBlank 只能作用在String上，不能为null，而且调用trim()后长度须大于0
   > `("test")`
+
+### Spring Bean
+
+#### Bean的作用域
+
+在面向对象程序设计中作用域一般指对象或变量之间的可见范围，而在Spring容器中是指起创建的Bean对象相对于其他的Bean对象的请求可见范围。
+
+Spring Framework支持五种作用域，可以是基于xml或使用注解@Scope声明  
+![Bean的五种作用域](https://github.com/Kjobs/Hello-World/blob/master/image/Spring_Bean_5scope.png)
+
+1） 单例(Singleton)：只要对Bean的请求id和Bean的定义域相匹配，则会返回bean的同一个实例；单一实例会被存储在单例缓存中  
+2） 原型(Prototype)：一个Bean的作用域为prototype时，表示定义对应了多个对象实例；Prototype是原型类型，它在创建容器的时候并没有实例化，而是当获取Bean的时候才会创建一个对象，而且每次获取到的对象都不是同一个对象  
++ 对于有状态的Bean应该使用prototype，对于无状态的Bean则使用singleton  
+
+3） 请求(Request)：为Http请求创建一个Bean实例，对应http的生命周期，请求处理完后遍会销毁这个bean    
+4） 会话(Session): 针对http session起作用，Spring容器会根据该Bean的定义来创建一个全新的Bean的实例  
+5） 全局会话(Global Session)：类似标准的http session作用域，不过仅仅在基于portlet的web应用当中才有意义。Portlet规范定义了全局Session的概念，它被所有构成某个portlet web应用的各种不同的portlet所共享
 
 ---
 
