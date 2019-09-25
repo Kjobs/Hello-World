@@ -335,8 +335,18 @@ public interface EntityRepository<TKey extends Serializable, TEntity extends Ent
 + @Temporal(TemporalType.TIME)实体类会封装成时间“hh-MM-ss”的Date类型
 + @Temporal(TemporalType.TIMESTAMP)实体类会封装成完整的时间“yyyy-MM-dd hh:MM:ss”的Date类型  
 
+### Jpa实现多条件查询
 
+要实现Jpa的Criteria查询，需要集成Jpa的相应接口JpaSpecificationExecutor
 
+#### 重写Specification的toPredicate方法
+
+1. CriteriaQuery<?> criteriaQuery ：这是一个面向对象查询，代表的是Specific的顶层查询对象，它包含查询的各个部分：select，from，where，group by, order by等，不过它是一个面向对象的查询方式，只对实体类型，嵌入式类型的Criteria查询起作用。
+2. Root<T> root ：代表要查询的对象，也就是实体类型，实体类型好比sql语句中的from后的表。传入实体类型后，会被CriteriaQuery的父类AbstractQuery.from将实体类型传入。
+3. CriteriaBuilder criteriaBuilder ：用来构建CriteriaQuery的构建器对象Predicate（谓语），即：一个简单或者复杂的谓语类型，相当于条件或者多条件集合。
+4. Predicate ：就是多条件查询中的条件，可以通过List<Predicate> 实现多个条件操作。
+
+---
 
 
 

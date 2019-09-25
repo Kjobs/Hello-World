@@ -248,6 +248,16 @@ Java的序列化机制是通过在运行时判断类的serialVersionUID来验证
 
 4. **
 
+### 函数式接口
+
+|接口|功能|
+|:---:|:----:|
+|Predicate<T> | 接收T对象并返回boolean|  
+|Consumer<T> | 接收T对象，不返回值|  
+|Function<T, R> | 接收T对象，返回R对象|  
+|Supplier<T> | 提供T对象（例如工厂），不接收值|   
+|UnaryOperator<T> | 接收T对象，返回T对象|  
+|BinaryOperator<T> | 接收两个T对象，返回T对象|
 
 ### Stream API
 
