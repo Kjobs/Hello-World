@@ -60,6 +60,8 @@ docker images [OPTIONS]
 docker inspect name|id
 ```
 
+
+
 ### Dockerfile文件
 
 ```text
@@ -117,8 +119,58 @@ networks:
 
 ### Docker + Jenkins 自动化部署
 
-需要注意几点：
+#### 大体流程结构
+
+1. 开发人员在git仓库上有一个push事件
+2. git仓库把push事件推送到Jenkins
+3. Jenkins 获取push源码，编译，打包，构建镜像
+4. Jenkins push 镜像到云服务器仓库
+5. Jenkins执行远程脚本  
+&nbsp; 5.1 远程服务器pull镜像
+&nbsp; 5.2 停止旧容器，启动新版本容器
+6. 项目部署测试
+
+
+#### 需要注意几点：
 1. 代码仓库若是私有的，需要在以前的访问URL上增加用户名和密码的认证信息
 2. 构建触发方式，需要使用git仓库的webhooks功能
 3. 指定构建完成后Dockerfile路径（如未指定则可能报错`unable to prepare context: unable to evaluate symlinks in Dockerfile path`）
 4. 构建项目，指定docker-compose.yml文件，指定docker用户登录认证信息，完成构建发布
+
+登录到镜像仓库
+```
+docker login -u username -p password registry_hostname
+```
+可能会出现
+```text
+Error loading config file: /root/.docker/config.json
+```  
+解决办法：
++ 服务器连接仓库需要配置一个config文件，新建一个config.json文件。
+
+也可能是权限问题，解决办法：
+```
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "/home/$USER/.docker" -R
+```
+登录不上，连接被拒绝的问题
+```text
+Error response from daemon: Get https://hub.yunzhidata.com/v2/: dial tcp 139.9.5.251:443: connect: connection refused
+```
+解决办法：增加/etc/docker/daemon.json文件
+```json
+{
+    "registry-mirrors": [
+        "https://registry.docker-cn.com",
+        "http://registry_hostname",
+	"http://registry_ip:5000"
+    ],
+    "insecure-registries": ["registry_hostname","139.9.5.251:5000"]
+}
+```
+然后重启Docker服务
+```
+systemctl daemon-reload
+systemctl restart docker
+```
+此后就可以通过用户名和密码登录私有镜像仓库了。
