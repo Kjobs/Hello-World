@@ -119,7 +119,7 @@ networks:
 
 ### Docker + Jenkins 自动化部署
 
-#### 大体流程结构
+#### 部署流程结构
 
 1. 开发人员在git仓库上有一个push事件
 2. git仓库把push事件推送到Jenkins
@@ -137,7 +137,8 @@ networks:
 3. 指定构建完成后Dockerfile路径（如未指定则可能报错`unable to prepare context: unable to evaluate symlinks in Dockerfile path`）
 4. 构建项目，指定docker-compose.yml文件，指定docker用户登录认证信息，完成构建发布
 
-登录到镜像仓库
+#### 登录到私有镜像仓库
+使用`docker login`登录
 ```
 docker login -u username -p password registry_hostname
 ```
@@ -174,3 +175,11 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 此后就可以通过用户名和密码登录私有镜像仓库了。
+
+#### 问题列表
+
+1. 错误信息
+    ```text
+    unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type
+    ```
+    问题原因：volume mount 失败，挂载文件出错，这里是宿主机没有相关文件的错误。只能挂载到目录或已存在的数据容器卷，不能挂载到文件
