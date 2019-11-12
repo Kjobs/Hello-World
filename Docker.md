@@ -60,6 +60,14 @@ docker images [OPTIONS]
 docker inspect name|id
 ```
 
+批量删除tag为<none>的镜像
+```
+docker images|grep none|awk ‘{print $3}’|xargs docker rmi
+```
+或者
+```
+docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+```
 
 
 ### Dockerfile文件
