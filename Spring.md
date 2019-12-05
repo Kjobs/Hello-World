@@ -56,6 +56,39 @@
 5. aspect(切面)——point cut和advice结合起来就是aspect，类似于OOP中定义的一个类，但它代表的更多是对象间横向的关系。
 6. proxy——一个类被AOP织入后产生一个结果类，它便是融合了源类和增强逻辑的代理类
 
+#### @Pointcut(...)注解
+
+确定Advice织入点，通过一下几种方法，具体表达式的写法省略
+
+关键字 | 功能
+:---: | :---:
+execution | 匹配连接点，一般是针对方法进行匹配
+within | 某个类里面
+this | 指定AOP代理类的类型
+target |指定目标对象的类型
+args | 指定参数的类型
+bean |指定特定的bean名称，可以使用通配符（Spring自带的）
+@target| 带有指定注解的类型
+@args | 指定运行时传的参数带有指定的注解
+@within | 匹配使用指定注解的类
+@annotation |指定方法所应用的注解
+
+#### @Before、@After和@Around
+
+这些注解用于Advice的具体实现方法，@Before是前置通知，@After是后置通知以及@Around是环绕通知。
+
+#### JoinPoint类
+
+一般作为BeforeAdvice、AfterAdvice的传入参数，用于访问目标方法
+
+方法名 | 功能  
+:---: | :---
+Signature getSignature() | 获取封装了署名信息的对象,在该对象中可以获取到目标方法名,所属类的Class等信息
+Object getTarget() | 获取被代理对象
+Object getThis() | 获取一个对象生成的代理对象
+Object[] getArgs() | 获取传入目标方法的参数列表
+
+
 最重要的作用：写代码时实现只需要考虑主流程，而不需要考虑那些不重要的流程
 
 ### 元注解
