@@ -164,7 +164,7 @@ sudo chmod g+rwx "/home/$USER/.docker" -R
 ```
 登录不上，连接被拒绝的问题
 ```text
-Error response from daemon: Get https://hub.yunzhidata.com/v2/: dial tcp 139.9.5.251:443: connect: connection refused
+Error response from daemon: Get https://hub.yunzhidata.com/v2/: dial tcp x.x.x.x:443: connect: connection refused
 ```
 解决办法：增加/etc/docker/daemon.json文件
 ```json
@@ -174,7 +174,7 @@ Error response from daemon: Get https://hub.yunzhidata.com/v2/: dial tcp 139.9.5
         "http://registry_hostname",
 	"http://registry_ip:5000"
     ],
-    "insecure-registries": ["registry_hostname","139.9.5.251:5000"]
+    "insecure-registries": ["registry_hostname","x.x.x.x:5000"]
 }
 ```
 然后重启Docker服务
@@ -183,6 +183,48 @@ systemctl daemon-reload
 systemctl restart docker
 ```
 此后就可以通过用户名和密码登录私有镜像仓库了。
+
+#### Jenkins访问Docker Daemon服务
+
+问题描述：在Docker安装的Jenkins容器内使用docker命令无效，无法访问到宿主机的Docker Daemon服务
+
+问题背景：Docker分为服务端和客户端，Docker Daemon是Docker的守护进程，Docker客户端通过命令行与Docker Daemon通信
+
+Docker Client与Docker服务端的三种连接方式：
+1. UNIX套接字（默认）  
+在启动docker服务后，会生成/var/run/docker.sock文件，UNIX套接字用于本地进程之间的通信，所以这种连接方式仅限于本机Docker的客户端访问
+2. TCP端口监听  
+服务端开启端口监听`dockerd -H IP:PORT`  
+客户端需要通过`-H`参数来访问`docker -H IP:PORT`  
+这种方式是不安全的，因为暴露Docker服务的端口可能会导致黑客获取宿主机最高权限，造成损失（可以通过启用TLS安全连接进行连接认证）
+3. 监听多个Socket
+
+通过docker.sock采用socket进行连接的方式，需要在创建Jenkins容器的时候挂载宿主机的sock文件
+```text
+...
+-v /home/jenkins/:/var/jenkins_home
+-v /var/run/docker.sock:/var/run/docker.sock
+-v /usr/bin/docker:/usr/bin/docker
+...
+```
+这样就可以在Jenkins自动化部署的流程中避免引入太多参数
+
+通过TCP端口访问的方式，可以通过dockerd指定，也可以编辑宿主机docker.service文件
+```text
+vim /usr/lib/systemd/system/docker.service
+```
+修改ExecStart内容
+```text
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+```
+然后重启docker服务
+```text
+systemctl daemon-reload
+systemctl restart docker.service
+```
+然后在Jenkins容器内就可以使用docker命令，或者是在Jenkins管理端通过Docker-Build-Step插件指定Docker Host URL中的“tcp://ip:port”方式，就不会出现`Is the docker daemon running?`问题了
+
+注，在开启端口监听后可以通过`ps aux|grep dockerd`或`netstat -lnp|grep port`先来确认端口是否被监听
 
 #### 问题列表
 
