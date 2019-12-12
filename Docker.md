@@ -140,12 +140,30 @@ networks:
 
 
 #### 需要注意几点：
+
 1. 代码仓库若是私有的，需要在以前的访问URL上增加用户名和密码的认证信息
 2. 构建触发方式，需要使用git仓库的webhooks功能
 3. 指定构建完成后Dockerfile路径（如未指定则可能报错`unable to prepare context: unable to evaluate symlinks in Dockerfile path`）
 4. 构建项目，指定docker-compose.yml文件，指定docker用户登录认证信息，完成构建发布
 
+#### 设置webhook自动抓取代码
+
+设置git的指定操作后推送更新到Jenkins服务来构建项目，需要设置git仓库的Web钩子功能
+
+推送地址格式
+```text
+http(s)://user:API token@Jenkins_URL/generic-webhook-trigger/invoke?token=token_name
+或
+http(s)://<jenkins-server>/gogs-webhook/?job=<jobname>
+```
+
+数据格式  
+一般有'application/x-www-form-urlencoded'和'application/json'两种格式，常用json格式  
+
+设置指定触发Web钩子的事件（Push、 发布版本等）
+
 #### 登录到私有镜像仓库
+
 使用`docker login`登录
 ```
 docker login -u username -p password registry_hostname
@@ -199,6 +217,7 @@ Docker Client与Docker服务端的三种连接方式：
 这种方式是不安全的，因为暴露Docker服务的端口可能会导致黑客获取宿主机最高权限，造成损失（可以通过启用TLS安全连接进行连接认证）
 3. 监听多个Socket
 
+
 通过docker.sock采用socket进行连接的方式，需要在创建Jenkins容器的时候挂载宿主机的sock文件
 ```text
 ...
@@ -207,9 +226,10 @@ Docker Client与Docker服务端的三种连接方式：
 -v /usr/bin/docker:/usr/bin/docker
 ...
 ```
-这样就可以在Jenkins自动化部署的流程中避免引入太多参数
+如果宿主机缺少docker.sock文件，需要安装或重启daemon服务
 
-通过TCP端口访问的方式，可以通过dockerd指定，也可以编辑宿主机docker.service文件
+
+通过TCP端口访问的方式，可以通过dockerd命令指定，也可以编辑宿主机docker.service文件
 ```text
 vim /usr/lib/systemd/system/docker.service
 ```
@@ -233,3 +253,9 @@ systemctl restart docker.service
     unknown: Are you trying to mount a directory onto a file (or vice-versa)? Check if the specified host path exists and is the expected type
     ```
     问题原因：volume mount 失败，挂载文件出错，这里是宿主机没有相关文件的错误。只能挂载到目录或已存在的数据容器卷，不能挂载到文件
+
+2. 错误信息
+    ```text
+    Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+    ```
+    问题原因：不能通过默认的UNIX socket方式连接Docker Daemon服务，需要确认是否有/var/run/docker.sock文件或通过指定tcp监听端口的方式连接Docker Daemon服务。
