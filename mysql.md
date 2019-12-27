@@ -200,6 +200,26 @@ create table table_name as select * from other_table_name;
 （6）需要在数值中使用引号时，使用转义字符。
 
 
+#### Docker中MySQL终端无法输入中文
+
+在MySQL所处容器中查看环境属性变量
+```text
+root@containerId:/# env
+```
+或查看字符集
+```text
+root@containerId:/# locale
+```
+查看支持的字符集
+```
+root@containerId:/# locale -a
+```
+修改容器LANG属性
+```
+root@containerId:/# export LANG=C.UTF-8
+```
+改为UTF-8后支持在容器中输入中文，但mysql终端还是无法正常输入，还会导致终端崩溃的情况。
+
 ### MySQL EXPLAIN
 > explain命令可以获取select语句的执行计划，在查询性能优化中是很重要的部分，可以开发人员帮助选择更好的索引和写出更优化的查询语句
 
