@@ -51,7 +51,7 @@ docker logs [OPTIONS] container
 docker images [OPTIONS]
 ```
 参数说明：  
-[-a] &nbsp;&nbsp; 列出所有镜像
+[-a] &nbsp;&nbsp; 列出所有镜像  
 [-q] &nbsp;&nbsp; 只显示镜像ID  
 
 
@@ -103,6 +103,39 @@ USER:指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定
 ### docker-compose文件
 
 > 文件格式可以指定yml或yaml
+
+文件样例：  
+```yaml
+version: '3'
+
+services:
+  service_name:
+    image: image_name
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - /etc/timezone:/etc/timezone:ro
+    - /local_path/:/remote_server_path/
+    ports:
+    - "port:port"
+    environment:
+    - server.port=port
+    restart: always
+    container_name: container_name
+    networks:
+    - custom_network
+
+networks:
+  custom_network:
+    external:
+      name: local_network
+```
+
+用docker-compose.yml文件创建镜像和容器  
+```
+docker-compose up -d
+```
+
+docker-compose带来的是单机部署上的便利，然而对于跨宿主机的容器的部署和管理能力依然较弱。
 
 #### 配置network
 
