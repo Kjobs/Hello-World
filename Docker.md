@@ -69,6 +69,11 @@ docker images|grep none|awk ‘{print $3}’|xargs docker rmi
 docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
 ```
 
+获取容器内root权限
+
+```shell
+docker exec -it -u root container_id bash
+```
 
 ### Dockerfile文件
 
@@ -100,11 +105,11 @@ ARG：用于指定传递给构建运行时的变量
 USER:指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定用户。使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户
 ```
 
-### docker-compose文件
+### docker-compose
 
 > 文件格式可以指定yml或yaml
 
-文件样例：  
+docker-compose文件样例：  
 ```yaml
 version: '3'
 
@@ -137,7 +142,35 @@ docker-compose up -d
 
 docker-compose带来的是单机部署上的便利，然而对于跨宿主机的容器的部署和管理能力依然较弱。
 
-#### 配置network
+#### 问题列表
+
+（1）无法运行`docker-compose`，出现以下信息
+
+```shell
+[2053] Cannot open self /usr/local/bin/docker-compose or archive /usr/local/bin/docker-compose.pkg
+```
+
+首先确保用户有足够的权限
+
+```
+chmod +x /usr/local/bin/docker-compose
+```
+
+若上诉命令不起作用的话，可能是版本原因，考虑重装docker-compose
+
+```shell
+curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+可以换镜像地址加速下载
+
+```shell
+curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+```
+
+然后再给docker-compose添加权限即可使用。
+
+### 配置network
 
 docker之所以这么强大是因为它不仅支持容器间相互通信，还支持非docker的工作空间的连接（详情见docker-network[文档](https://docs.docker.com/network/)）。
 故配置networks通常用于集群服务，以解决网络隔离问题。
@@ -158,7 +191,7 @@ networks:
       name: network_name
 ```
 
-### Docker + Jenkins 自动化部署
+## Docker + Jenkins 自动化部署
 
 #### 部署流程结构
 
@@ -167,8 +200,8 @@ networks:
 3. Jenkins 获取push源码，编译，打包，构建镜像
 4. Jenkins push 镜像到云服务器仓库
 5. Jenkins执行远程脚本  
-  &nbsp; 5.1 远程服务器pull镜像
-  &nbsp; 5.2 停止旧容器，启动新版本容器
+    &nbsp; 5.1 远程服务器pull镜像
+    &nbsp; 5.2 停止旧容器，启动新版本容器
 6.  项目部署测试
 
 #### Jenkins项目配置文件
