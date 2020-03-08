@@ -1,6 +1,6 @@
 ### SQL语句
 
-#### 数据库操作
+#### 安装MySQL服务
 
 安装mysql服务：`mysqld --install;`  
 启动mysql：`net start mysql;`  
@@ -11,7 +11,7 @@
 SHOW PROCESSLIST;
 ```
 
-#### 用户密码
+#### 用户密码设置
 
 修改密码,密码加密函数password()
 ```sql
@@ -20,11 +20,10 @@ SHOW PROCESSLIST;
 
 
 #### ORDER BY语句  
-按升序排列:
-`asc`  
-按降序排列 :
-`desc`   
+按升序排列:`asc`  
+按降序排列 :`desc`   
 根据id字段按照降序排列，从大到小
+
 ```sql
 > select * from tablename order by id desc;
 ```
@@ -38,12 +37,20 @@ SHOW PROCESSLIST;
 + union用于合并两个或多个select语句的结果集，并消去表中任何重复项；
 - union all允许重复的值，即union all不消除重复行
 
+用法示例
+
+```mysql
+SELECT id,name,score FROM tb_Student WHERE age<=20
+UNION ALL
+SELECT id,name,score FROM tb_Student WHERE score<90;
+```
+
 
 #### 在查询中使用正则表达式
 使用regexp
 ```sql
 > select City from Station where City regexp '^[aeiou]';
-```  
+```
 使用rlike
 ```sql
 > select distinct City from Station where City rlike '^[^aeiou]' or City rlike '[^aeiou]$';
@@ -52,7 +59,8 @@ SHOW PROCESSLIST;
 
 #### 字段修改
 
-显示字段
++ 显示字段
+
 ```sql
 > show full columns from table; 
 ```
@@ -64,12 +72,14 @@ SHOW PROCESSLIST;
       Records: 0  Duplicates: 0  Warnings: 0
 ```
 
-修改字段名
++ 修改字段名
+
 ```sql
 > alter table 表名称 change 字段名称 字段名称 字段类型 [是否允许非空];
 ```
 
-修改字段类型
++ 修改字段类型
+
 ```sql
 > alter table 表名称 modify 字段名称 字段类型 [是否允许非空];
 ```
@@ -106,7 +116,7 @@ SHOW PROCESSLIST;
 > truncate table employee; #删除包含自增主键在内所有信息
 ```
 
-  
+
 #### 修改表
 
 创建表，例：创建一个新闻表：
@@ -148,10 +158,20 @@ create table table_name as select * from other_table_name;
 
 
 #### 修改用户
-1. 添加用户并分配权限  
-授权格式：`grant 权限 on 数据库.* to 用户名@登录主机 identified by "密码";`  
-例：`grant all privileges on wordpress.* to user@localhost identified by "password";`
-2. 删除用户
+1. 添加用户
+
+  ```mysql
+  create user 用户名@登录主机 identified by '密码';
+  ```
+
+2. 分配权限  
+    授权格式：`grant 权限 on 数据库.* to 用户名@登录主机 identified by "密码";`  
+
+  ```mysql
+  grant all privileges on wordpress.* to user@localhost identified by "password";`
+  ```
+3. 删除用户
+
 ```sql
 > use msyql;
 > delete from user where user = "";
@@ -176,9 +196,40 @@ create table table_name as select * from other_table_name;
 
 #### 查看MySQL服务占用端口
 使用命令直接查看
-```sql
+```mysql
 > show global variables like "port";
 ```
+
+#### MySQL EXPLAIN
+
+> explain命令可以获取select语句的执行计划，在查询性能优化中是很重要的部分，可以开发人员帮助选择更好的索引和写出更优化的查询语句
+
+explain命令每个字段的说明
+
+| 字段 |                             说明                             |
+| :--: | :----------------------------------------------------------: |
+|  id  | 执行编号，标识select所属的行，按select出现的顺序增长，id越大优先级越高，越先被执行 |
+
+|select_type|每个select子句的类型，简单或复杂查询，例：simple\primary\union\derived
+|table|访问引用的表名（或某个查询的引用，如“derived1”）
+|partitions|若是基于分区表的查询，显示将访问的分区
+|type|MySQL在表中找到所需行的方式，关联或访问类型（ALL、index、range、ref、eq_ref、const/system、NULL）
+|possible_keys|指出哪一些索引可能有利于高效的查询，查询所涉及到的索引均会被列出
+|key|显示MySQL实际使用的键（索引）来做优化查询
+|key_len|显示索引字段的最大可能长度（字节数），根据表定义来计算的
+|ref|显示之前的表在key列记录的索引中查询值所用的列或常量
+|rows|根据表统计信息及索引选用情况，估算找到所需记录所需要读取的行数，在innodb上是不准确的
+|filtered|
+|Extra|额外信息，执行状态说明，如using index、Using where、filesort等
+
+
+补充说明
+
+* EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况
+* EXPLAIN不考虑各种Cache
+* EXPLAIN不能显示MySQL在执行查询时所作的优化工作
+* 部分统计信息是估算的，并非精确值
+* EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划
 
 ---
 
@@ -219,37 +270,6 @@ root@containerId:/# locale -a
 root@containerId:/# export LANG=C.UTF-8
 ```
 改为UTF-8后支持在容器中输入中文，但mysql终端还是无法正常输入，还会导致终端崩溃的情况。
-
-### MySQL EXPLAIN
-> explain命令可以获取select语句的执行计划，在查询性能优化中是很重要的部分，可以开发人员帮助选择更好的索引和写出更优化的查询语句
-
-#### Explain Output Column
-
-explain命令每个字段的说明
-
-| 字段 | 说明 |
-| :---: | :---: |
-|id|执行编号，标识select所属的行，按select出现的顺序增长，id越大优先级越高，越先被执行|
-|select_type|每个select子句的类型，简单或复杂查询，例：simple\primary\union\derived
-|table|访问引用的表名（或某个查询的引用，如“derived1”）
-|partitions|若是基于分区表的查询，显示将访问的分区
-|type|MySQL在表中找到所需行的方式，关联或访问类型（ALL、index、range、ref、eq_ref、const/system、NULL）
-|possible_keys|指出哪一些索引可能有利于高效的查询，查询所涉及到的索引均会被列出
-|key|显示MySQL实际使用的键（索引）来做优化查询
-|key_len|显示索引字段的最大可能长度（字节数），根据表定义来计算的
-|ref|显示之前的表在key列记录的索引中查询值所用的列或常量
-|rows|根据表统计信息及索引选用情况，估算找到所需记录所需要读取的行数，在innodb上是不准确的
-|filtered|
-|Extra|额外信息，执行状态说明，如using index、Using where、filesort等
-
-
-补充说明
-
-* EXPLAIN不会告诉你关于触发器、存储过程的信息或用户自定义函数对查询的影响情况
-* EXPLAIN不考虑各种Cache
-* EXPLAIN不能显示MySQL在执行查询时所作的优化工作
-* 部分统计信息是估算的，并非精确值
-* EXPALIN只能解释SELECT操作，其他操作要重写为SELECT后查看执行计划
 
 
 #### 建表规范，设计三范式
